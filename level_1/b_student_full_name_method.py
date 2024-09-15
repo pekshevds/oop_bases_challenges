@@ -12,11 +12,13 @@ class Student:
         self.surname = surname
         self.faculty = faculty
         self.course = course
+        self.full_name = ""
 
     def get_full_name(self):
         return f"Student's full name: {self.surname}, {self.name}"
 
 
-if __name__ == '__main__':
-    pass  # код писать тут
-
+if __name__ == "__main__":
+    student = Student(name="john", surname="smith", faculty="economy", course=2)
+    student.full_name = student.get_full_name()
+    print(student.full_name)
