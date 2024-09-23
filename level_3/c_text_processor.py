@@ -17,11 +17,24 @@ class TextProcessor:
         return self.text.upper()
 
     def summarize(self):
-        return f'Total text length: {len(self.text)}'
+        return f"Total text length: {len(self.text)}"
 
 
-# код писать тут
+class AdvancedTextProcessor(TextProcessor):
+    def summarize(self):
+        return f"Total text length: {len(self.text)}, total number of words in the text: {len(self.text.split())}"
 
 
-if __name__ == '__main__':
-    pass  # код писать тут
+if __name__ == "__main__":
+    some_text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit,\
+    sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.\
+    Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.\
+    Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.\
+    Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+    tp1 = TextProcessor(some_text)
+    print(tp1.to_upper())
+    print(tp1.summarize())
+
+    atp1 = AdvancedTextProcessor(some_text)
+    print(atp1.to_upper())
+    print(atp1.summarize())
