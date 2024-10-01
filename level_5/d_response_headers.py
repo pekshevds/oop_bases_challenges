@@ -17,16 +17,16 @@ class BaseResponse:
         self.content = content
 
     def get_byte_content_length(self):
-        return len(self.content.encode('utf-8'))
+        return len(self.content.encode("utf-8"))
 
 
 class BaseHeadersMixin:
     def generate_base_headers(self):
         return {
-            'Content-Type': 'application/x-www-form-urlencoded',
-            'user-agent': (
-                'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) '
-                'AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.114 Safari/537.36'
+            "Content-Type": "application/x-www-form-urlencoded",
+            "user-agent": (
+                "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
+                "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.114 Safari/537.36"
             ),
         }
 
@@ -34,7 +34,13 @@ class BaseHeadersMixin:
         return self.generate_base_headers()
 
 
-# код писать тут
+class CustomResponse(BaseHeadersMixin, BaseResponse):
+    def generate_headers(self):
+        base_headers = super().generate_headers()
+        base_headers.update({"Content-Length": super().get_byte_content_length()})
+        return base_headers
 
-if __name__ == '__main__':
-    pass  # код писать тут
+
+if __name__ == "__main__":
+    response = CustomResponse("some content")
+    print(response.generate_headers())
