@@ -10,33 +10,47 @@
 """
 
 
+class PrintLoggerMixin:
+    def log(self, message: str):
+        print(message)
+
+
 class Product:
     def __init__(self, title: str, price: float):
         self.title = title
         self.price = price
 
     def get_info(self):
-        return f'Product {self.title} with price {self.price}'
+        return f"Product {self.title} with price {self.price}"
 
 
-class PremiumProduct(Product):
+class PremiumProduct(Product, PrintLoggerMixin):
     def increase_price(self):
         self.price *= 1.2
+        self.log("increase_price method PremiumProduct class was called")
 
     def get_info(self):
         base_info = super().get_info()
-        return f'{base_info} (Premium)'
+        self.log("get_info method PremiumProduct class was called")
+        return f"{base_info} (Premium)"
 
 
-class DiscountedProduct(Product):
+class DiscountedProduct(Product, PrintLoggerMixin):
     def decrease_price(self):
         self.price /= 1.2
+        self.log("decrease_price method DiscountedProduct class was called")
 
     def get_info(self):
         base_info = super().get_info()
-        return f'{base_info} (Discounted)'
+        self.log("get_info method DiscountedProduct class was called")
+        return f"{base_info} (Discounted)"
 
 
-if __name__ == '__main__':
-    pass
+if __name__ == "__main__":
+    pp1 = PremiumProduct("milk", 79.49)
+    pp1.increase_price()
+    print(pp1.get_info())
 
+    dp1 = DiscountedProduct("bread", 49.99)
+    dp1.decrease_price()
+    print(dp1.get_info())
